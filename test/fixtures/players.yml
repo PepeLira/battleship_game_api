@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  email: MyString
+  auth_key: MyString
+  n_win_games: 1
+  n_lose_games: 1
+  n_played_games: 1
+  n_bonifications: 1
+  n_effectiveness: 1
+  turns_mean_of_games: 1
+  mean_of_misses_by_game: 1
+
+two:
+  name: MyString
+  email: MyString
+  auth_key: MyString
+  n_win_games: 1
+  n_lose_games: 1
+  n_played_games: 1
+  n_bonifications: 1
+  n_effectiveness: 1
+  turns_mean_of_games: 1
+  mean_of_misses_by_game: 1
