@@ -1,4 +1,4 @@
 class Room < ApplicationRecord
-    has_many :players, dependent: :destroy
-    has_many :games, dependent: :destroy
+  has_many :player_rooms, dependent: :destroy
+  has_one :game, dependent: :destroy
 end
