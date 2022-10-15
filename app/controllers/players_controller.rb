@@ -1,5 +1,6 @@
 class PlayersController < ApplicationController
   before_action :set_player, only: %i[ show ]
+  skip_before_action :verify_authenticity_token
 
   # GET /players/1 or /players/1.json
   def login
@@ -17,7 +18,6 @@ class PlayersController < ApplicationController
     friends = Player.where(id: params[:id]).first.friend_requests.where(status: params[:status])
     render json: friends
   end
-
 
   def index
     players = Player.all
