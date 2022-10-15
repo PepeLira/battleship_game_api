@@ -13,6 +13,11 @@ class PlayersController < ApplicationController
     end
   end
 
+  # GET Friends 
+  def get_friends
+    friends = Player.where(id: params[:id]).first.friend_requests.where(status: params[:status])
+    render json: friends
+  end
 
 
   def index

@@ -8,6 +8,8 @@ class Player < ApplicationRecord
   has_one :friend, dependent: :destroy
   has_many :player_rooms, dependent: :destroy
 
+  validates :email, uniqueness: true
+
   def create_friend_association
     Friend.create(player_id: id)
   end
