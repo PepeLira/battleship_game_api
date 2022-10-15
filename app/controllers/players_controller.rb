@@ -1,6 +1,5 @@
 class PlayersController < ApplicationController
   before_action :set_player, only: %i[ show ]
-  skip_before_action :verify_authenticity_token
 
   # GET /players/1 or /players/1.json
   def login
