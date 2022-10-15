@@ -67,5 +67,5 @@ friend_request_1 = FriendRequest.new(player: player_2, friend: player_1.friend, 
 friend_request_1.save!
 friend_request_2 = FriendRequest.new(player: player_1, friend: player_3.friend, status: "pending")
 friend_request_2.save!
-friend_request_2 = FriendRequest.new(player: player_1, friend: player_4.friend, status: "rejected")
-friend_request_2.save!
+friend_request_3 = FriendRequest.new(player: player_1, friend: player_4.friend, status: "rejected")
+friend_request_3.save!
