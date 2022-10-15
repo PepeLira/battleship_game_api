@@ -1,4 +1,6 @@
+require 'securerandom'
 class Player < ApplicationRecord
+  before_create :asign_auth_key
   after_create :create_friend_association
 
   has_many :turns, dependent: :destroy
@@ -8,5 +10,9 @@ class Player < ApplicationRecord
 
   def create_friend_association
     Friend.create(player_id: id)
+  end
+
+  def asign_auth_key
+    self.auth_key ||= SecureRandom.hex
   end
 end
