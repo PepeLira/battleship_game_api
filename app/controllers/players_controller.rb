@@ -20,6 +20,31 @@ class PlayersController < ApplicationController
     end 
   end
 
+  # Patch update
+  def update
+      player = Player.find(params[:id])
+
+      player.update_attribute(:name, params[:name]) if params[:name].present?
+      player.update_attribute(:email, params[:email]) if params[:email].present?
+      player.update_attribute(:password, params[:password]) if params[:password].present?
+      player.update_attribute(:n_win_games, params[:n_win_games]) if params[:n_win_games].present?
+      player.update_attribute(:n_lose_games, params[:n_lose_games]) if params[:n_lose_games].present?
+      player.update_attribute(:n_played_games, params[:n_played_games]) if params[:n_played_games].present?
+      player.update_attribute(:n_bonifications, params[:n_bonifications]) if params[:n_bonifications].present?
+      player.update_attribute(:n_effectiveness, params[:n_effectiveness]) if params[:n_effectiveness].present?
+      player.update_attribute(:turns_mean_of_games, params[:turns_mean_of_games]) if params[:turns_mean_of_games].present?
+      player.update_attribute(:mean_of_misses_by_game, params[:mean_of_misses_by_game]) if params[:mean_of_misses_by_game].present?
+
+      render json: player
+  end 
+
+  def show
+    if params[:id].present?
+      player = Player.find(params[:id])
+      render json: player
+    end
+  end
+
   # GET Friends 
   def get_friends
     friends = Player.where(id: params[:id]).first.friend_requests.where(status: params[:status])
