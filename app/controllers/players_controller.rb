@@ -13,6 +13,13 @@ class PlayersController < ApplicationController
     end
   end
 
+  def new
+    if params[:name].present? && params[:email].present? && params[:password].present?
+      new_player = Player.create(name: params[:name], email: params[:email], password: params[:password])
+      render json: new_player
+    end 
+  end
+
   # GET Friends 
   def get_friends
     friends = Player.where(id: params[:id]).first.friend_requests.where(status: params[:status])
