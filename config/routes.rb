@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   post 'player/new', to: 'players#new'
   patch 'player/:id/update', to: 'players#update'
   post 'friend_request/new', to: 'players#new_friend_request'
+  post 'friend_request/response', to: 'players#respond_friend_request'
 end

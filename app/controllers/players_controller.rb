@@ -55,6 +55,14 @@ class PlayersController < ApplicationController
     end
   end
 
+  def respond_friend_request
+    if params[:status].present? && params[:friend_request_id].present?
+      friend_request = FriendRequest.find_by(id: params[:friend_request_id])
+      action_response = friend_request.update(status: params[:status])
+      render json: action_response
+    end
+  end
+
   # GET Friends 
   def get_friends
     friends = Player.where(id: params[:id]).first.friend_requests.where(status: params[:status])
