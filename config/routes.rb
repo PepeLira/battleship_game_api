@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   post 'players/:id/friends', to: 'players#get_friends'
 
   post 'player/new', to: 'players#new'
+  post 'friend_request/new', to: 'players#new_friend_request'
 end
