@@ -46,7 +46,6 @@ class PlayersController < ApplicationController
   end
   
   def new_friend_request
-    binding.pry
     if params[:player_email].present? && params[:friend_email].present?
       player = Player.find_by(email: params[:player_email])
       friend_player = Player.find_by(email: params[:friend_email])
