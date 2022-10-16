@@ -16,6 +16,16 @@ class PlayersController < ApplicationController
   # GET Friends 
   def get_friends
     friends = Player.where(id: params[:id]).first.friend_requests.where(status: params[:status])
+
+    friends_ids = []
+
+    friends.each do |f|
+      friends_ids << f.friend.id
+    end
+
+    friends = Player.where(id: friends_ids)
+
+
     render json: friends
   end
 
