@@ -15,7 +15,7 @@ class PlayersController < ApplicationController
 
   def new
     if params[:name].present? && params[:email].present? && params[:password].present?
-      new_player = Player.create(name: params[:name], email: params[:email], password: params[:password])
+      new_player = Player.create!(name: params[:name], email: params[:email], password: params[:password])
       render json: new_player
     end 
   end
@@ -42,6 +42,17 @@ class PlayersController < ApplicationController
     if params[:id].present?
       player = Player.find(params[:id])
       render json: player
+    end
+  end
+  
+  def new_friend_request
+    binding.pry
+    if params[:player_email].present? && params[:friend_email].present?
+      player = Player.find_by(email: params[:player_email])
+      friend_player = Player.find_by(email: params[:friend_email])
+      friend = Friend.find_by(player: friend_player)
+      new_friend_request = FriendRequest.create!(player: player, friend: friend, status: "pending")
+      render json: new_friend_request
     end
   end
 
