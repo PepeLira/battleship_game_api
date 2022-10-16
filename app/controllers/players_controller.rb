@@ -26,7 +26,7 @@ class PlayersController < ApplicationController
     friends = Player.where(id: friends_ids)
 
 
-    render json: {friends: friends}
+    render json: friends
   end
 
   def index
