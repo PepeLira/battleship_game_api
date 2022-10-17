@@ -17,7 +17,7 @@ class PlayersController < ApplicationController
     if params[:name].present? && params[:email].present? && params[:password].present?
       new_player = Player.create!(name: params[:name], email: params[:email], password: params[:password])
       render json: new_player
-    end 
+    end
   end
 
   # Patch update
@@ -65,16 +65,20 @@ class PlayersController < ApplicationController
 
   # GET Friends 
   def get_friends
-    friends = Player.where(id: params[:id]).first.friend_requests.where(status: params[:status])
+    player = Player.find_by(id: params[:id])
+    player_friend = Friend.find_by(player: player)
+    sended_friend_requests = FriendRequest.where(player: player, status: params[:status])
+    received_friend_requests = FriendRequest.where(friend: player_friend, status: params[:status])
 
-    friends_ids = []
+    friends = []
 
-    friends.each do |f|
-      friends_ids << f.friend.id
+    sended_friend_requests.each do |f|
+      friends << f.friend.player
     end
 
-    friends = Player.where(id: friends_ids)
-
+    received_friend_requests.each do |f|
+      friends << f.player
+    end
 
     render json: friends
   end
