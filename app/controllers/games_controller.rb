@@ -59,7 +59,7 @@ class GamesController < ApplicationController
 
   def respond_invitation
     if params[:room_id].present? && params[:player_id].present? && params[:status].present?
-      player_room = PlayerRoom.where(room_id: params[:room_id], status: "pending").first
+      player_room = PlayerRoom.where(room_id: params[:room_id], player_id: params[:player_id], status: "pending").first
 
       action_player_room = player_room.update(status: params[:status])
 
