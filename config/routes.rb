@@ -11,4 +11,11 @@ Rails.application.routes.draw do
   patch 'player/:id/update', to: 'players#update'
   post 'friend_request/new', to: 'players#new_friend_request'
   post 'friend_request/response', to: 'players#respond_friend_request'
+
+  post 'player/:player_id/rooms', to: 'games#get_rooms'
+  post 'player/new_game', to: 'games#create_new_game'
+  post 'room/new_player', to: 'games#add_new_player'
+  get 'room/:room_id/players', to: 'games#get_room_players'
+  post 'room/:room_id/response', to: 'games#respond_invitation'
+
 end

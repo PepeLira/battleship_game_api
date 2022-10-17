@@ -77,7 +77,7 @@ player_5 = Player.new(
 player_5.save!
 
 
-player_5 = Player.new(
+player_6 = Player.new(
     name: Faker::Name.unique.name,
     email: Faker::Internet.unique.email,
     password: "1234",
@@ -88,7 +88,7 @@ player_5 = Player.new(
     n_effectiveness: 0,
     turns_mean_of_games: 0,
     mean_of_misses_by_game: 0)
-player_5.save!
+player_6.save!
 
 
 friend_request_1 = FriendRequest.new(player: player_2, friend: player_1.friend, status: "accepted")
@@ -96,6 +96,8 @@ friend_request_1.save!
 friend_request_1 = FriendRequest.new(player: player_4, friend: player_1.friend, status: "accepted")
 friend_request_1.save!
 friend_request_1 = FriendRequest.new(player: player_5, friend: player_1.friend, status: "accepted")
+friend_request_1.save!
+friend_request_1 = FriendRequest.new(player: player_6, friend: player_1.friend, status: "accepted")
 friend_request_1.save!
 friend_request_2 = FriendRequest.new(player: player_1, friend: player_3.friend, status: "pending")
 friend_request_2.save!
