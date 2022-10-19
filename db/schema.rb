@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_17_005258) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_19_015247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "boards", force: :cascade do |t|
+    t.string "bonifications"
+    t.string "board_state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "game_id", null: false
+    t.index ["game_id"], name: "index_boards_on_game_id"
+  end
 
   create_table "friend_requests", force: :cascade do |t|
     t.string "status"
@@ -44,6 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_17_005258) do
     t.bigint "player_id", null: false
     t.bigint "room_id", null: false
     t.string "status"
+    t.integer "player_number"
     t.index ["player_id"], name: "index_player_rooms_on_player_id"
     t.index ["room_id"], name: "index_player_rooms_on_room_id"
   end
@@ -77,10 +87,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_17_005258) do
     t.datetime "updated_at", null: false
     t.bigint "game_id", null: false
     t.bigint "player_id", null: false
+    t.boolean "bonification"
+    t.string "result"
     t.index ["game_id"], name: "index_turns_on_game_id"
     t.index ["player_id"], name: "index_turns_on_player_id"
   end
 
+  add_foreign_key "boards", "games"
   add_foreign_key "friend_requests", "friends"
   add_foreign_key "friend_requests", "players"
   add_foreign_key "friends", "players"
