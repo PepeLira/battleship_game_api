@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_22_180247) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_22_190532) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "boards", force: :cascade do |t|
+    t.string "board_state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "game_id", null: false
@@ -25,10 +26,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_22_180247) do
     t.string "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "player_room_id", null: false
-    t.bigint "board_id", null: false
-    t.index ["board_id"], name: "index_boats_on_board_id"
-    t.index ["player_room_id"], name: "index_boats_on_player_room_id"
+    t.bigint "game_player_id"
+    t.bigint "boat_id", null: false
+    t.index ["boat_id"], name: "index_boats_on_boat_id"
+    t.index ["game_player_id"], name: "index_boats_on_game_player_id"
   end
 
   create_table "coordinates", force: :cascade do |t|
@@ -115,8 +116,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_22_180247) do
   end
 
   add_foreign_key "boards", "games"
-  add_foreign_key "boats", "boards"
-  add_foreign_key "boats", "player_rooms"
+  add_foreign_key "boats", "boats"
+  add_foreign_key "boats", "player_rooms", column: "game_player_id"
   add_foreign_key "coordinates", "boards"
   add_foreign_key "coordinates", "boats"
   add_foreign_key "friend_requests", "friends"
