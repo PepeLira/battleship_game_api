@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_22_194258) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_22_211156) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,6 +66,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_22_194258) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "room_id", null: false
+    t.bigint "current_player_id"
+    t.index ["current_player_id"], name: "index_games_on_current_player_id"
     t.index ["room_id"], name: "index_games_on_room_id"
   end
 
@@ -124,6 +126,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_22_194258) do
   add_foreign_key "friend_requests", "friends"
   add_foreign_key "friend_requests", "players"
   add_foreign_key "friends", "players"
+  add_foreign_key "games", "player_rooms", column: "current_player_id"
   add_foreign_key "games", "rooms"
   add_foreign_key "player_rooms", "players"
   add_foreign_key "player_rooms", "rooms"
