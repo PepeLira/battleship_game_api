@@ -19,7 +19,7 @@ class GamesController < ApplicationController
       end
       
       # Instancia del nuevo juego
-      new_game = Game.new(room: room, winner_id: nil)
+      new_game = Game.new(room: room, winner: nil)
       room.state = "in game"
 
       new_game.save!
