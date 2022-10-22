@@ -103,3 +103,14 @@ friend_request_2 = FriendRequest.new(player: player_1, friend: player_3.friend, 
 friend_request_2.save!
 friend_request_2 = FriendRequest.new(player: player_1, friend: player_4.friend, status: "rejected")
 friend_request_2.save!
+
+room1 = Room.create(state: "open")
+
+player_room = PlayerRoom.new(player: player_1, room: room1, status: "open")
+player_room.save!
+player_room = PlayerRoom.new(player: player_2, room: room1, status: "open")
+player_room.save!
+player_room = PlayerRoom.new(player: player_3, room: room1, status: "open")
+player_room.save!
+player_room = PlayerRoom.new(player: player_4, room: room1, status: "open")
+player_room.save!

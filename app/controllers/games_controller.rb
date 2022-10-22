@@ -6,6 +6,27 @@ class GamesController < ApplicationController
     render json: games
   end
 
+  #POST NEW GAME
+  def new_game
+    if params[:room_id].present?
+      room = Room.find_by(id: params[:room_id])
+
+      count = 1
+      # Asignación de los players 
+      PlayerRoom.find_by(room_id: params[:room_id]) do |pr|
+        pr.update(player_number: count)
+        count += 1
+      end
+      
+      # Instancia del nuevo juego
+      new_game = Game.new(room: room, winner_id: nil)
+      room.state = "in game"
+
+      new_game.save!
+
+    end
+  end
+
   def create_new_game
     if params[:player_id].present?
       room = Room.new(state: "open")
