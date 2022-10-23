@@ -32,6 +32,10 @@ class GamesController < ApplicationController
           if impact_coords
             result = "impacto"
             impact_coords.update(state: "dead")
+            bonification = impact_coords.check_bonification
+            if bonification
+              game_player.update(bonification: bonification)
+            end
             response = {message: "Impacto [#{params[:x_cord].to_s},#{params[:y_cord].to_s}], vuelves a jugar"}
           else
             result = "agua"

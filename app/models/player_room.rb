@@ -15,4 +15,14 @@ class PlayerRoom < ApplicationRecord
     end
     suicide
   end
+
+  def player_point
+    winer_turns = Turn.where(result: "impacto")
+    winer_turns.length()
+  end
+
+  def player_misses
+    miss_turns = Turn.where(result: "agua")
+    miss_turns.length()
+  end
 end
