@@ -123,7 +123,7 @@ class GamesController < ApplicationController
       rooms = []
 
       player_rooms.each do |pr|
-        if pr.room.state == "open"
+        if pr.room.state == "open" || pr.room.state == "in game"
           rooms << pr.room
         end
       end
