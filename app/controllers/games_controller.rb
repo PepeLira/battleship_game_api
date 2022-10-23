@@ -28,10 +28,6 @@ class GamesController < ApplicationController
           end
         end
       end
-
-      binding.pry
-
-
       render json: data
     end
   end
