@@ -17,6 +17,39 @@ class GamesController < ApplicationController
     end
   end
 
+  def post_new_turn
+    if params[:x_cord].present? && params[:y_cord].present? && params[:player_id].present? && params[:room_id].present?
+      response = {}
+      game_player = PlayerRoom.find_by(player_id: params[:player_id], room_id: params[:room_id])
+      game = Game.find_by(room_id: params[:room_id])
+      board = Board.find_by(game: game)
+      
+      if game.player_turn?(game_player)
+        if suicide?( params[:x_cord], params[:y_cord] )
+          response = {message: "No te dispares a ti mismo :("}
+        else
+          impact_coords = board.fire_result( params[:x_cord], params[:y_cord] )
+          if impact_coords
+            result = "impacto"
+            impact_coords.update(state: "dead")
+            response = {message: "Impacto [#{params[:x_cord].to_s},#{params[:y_cord].to_s}], vuelves a jugar"}
+          else
+            result = "agua"
+            next_player = game.next_player_turn
+            response = {message: "Al agua, le toca a #{next_player}"}
+          end
+          Turn.create(x_cord: params[:x_cord], y_cord: params[:y_cord], result: result, game: game, player: game_player.player)
+        end
+      else
+        response = {message: "Actualmente no es tu turno :("}
+      end
+
+      render json: response
+
+    end
+  end
+
+
   def add_new_player
     if params[:room_id].present? && params[:player_id].present?
       room = Room.find_by(id: params[:room_id])

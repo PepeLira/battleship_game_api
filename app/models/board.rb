@@ -31,5 +31,16 @@ class Board < ApplicationRecord
         predef_board[key].delete_at(rand(predef_board[key].length))
     end
 
+    def fire_result(x_cord, y_cord)
+        coordinates = Coordinate.where(board_id: id, state: "alive")
+        impact = nil
+        coordinates.each do |coord|
+            if coord.x == x_cord && coord.y == y_cord
+                impact = coord
+            end
+        end
+        impact
+    end
+
     
 end
