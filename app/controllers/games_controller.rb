@@ -25,7 +25,7 @@ class GamesController < ApplicationController
       
       
       # Instancia del nuevo juego (player_room es current_player)
-      new_game = Game.new(room: room, winner: nil, player_room_id: first_player.id)
+      new_game = Game.new(room: room, winner: nil, current_player_number: first_player.player_number)
       room.state = "in game"
 
       new_game.save!
@@ -51,9 +51,8 @@ class GamesController < ApplicationController
       player_room = PlayerRoom.find_by(player_id: params[:player_id], room_id: params[:room_id])
       game = Game.find_by(room_id: params[:room_id])
       board = Board.find_by(game: game)
-      
-      if game.player_turn?(player_room)
-        if suicide?( params[:x_cord], params[:y_cord] )
+      if game.player_turn?(player_room.player_number)
+        if player_room.suicide?( params[:x_cord], params[:y_cord] )
           response = {message: "No te dispares a ti mismo :("}
         else
           impact_coords = board.fire_result( params[:x_cord], params[:y_cord] )
