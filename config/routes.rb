@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   post 'room/:room_id/response', to: 'games#respond_invitation'
 
   post "new_game", to: 'games#new_game'
+  post 'room/:room_id/game/turn', to: 'games#post_new_turn'
+
 end
