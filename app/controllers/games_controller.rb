@@ -6,6 +6,32 @@ class GamesController < ApplicationController
     render json: games
   end
 
+  def get_board_state
+    if params[:room_id] && params[:player_id]
+      room = Room.find_by(id: params[:room_id])
+
+      player_room = room.player_rooms.where(player_id: params[:player_id]).first
+
+      data = {'alive': [], 'dead': []}
+      
+      # Buildeo del json
+      for boat in player_room.boats
+        for coord in boat.coordinates
+          if coord.state == "alive"
+            data[:alive] << coord
+          else
+            data[:dead] << coord
+          end
+        end
+      end
+
+      binding.pry
+
+
+      render json: data
+    end
+  end
+
   #POST NEW GAME
   def new_game
     if params[:room_id].present?
