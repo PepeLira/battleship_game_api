@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   get 'players', to: "players#index"
+  get 'rooms', to: "games#get_all_rooms"
+
 
   get 'player/:id', to: "players#show"
   post 'players/login', to: 'players#login'
@@ -11,6 +13,7 @@ Rails.application.routes.draw do
   patch 'player/:id/update', to: 'players#update'
   post 'friend_request/new', to: 'players#new_friend_request'
   post 'friend_request/response', to: 'players#respond_friend_request'
+
 
   post 'player/:player_id/rooms', to: 'games#get_rooms'
   post 'player/new_game', to: 'games#create_new_game'

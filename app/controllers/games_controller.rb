@@ -6,6 +6,10 @@ class GamesController < ApplicationController
     render json: games
   end
 
+  def get_all_rooms
+    render json: Room.all
+  end
+
   def get_board_state
     if params[:room_id] && params[:player_id]
       room = Room.find_by(id: params[:room_id])
