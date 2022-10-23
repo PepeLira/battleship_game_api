@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   get 'room/:room_id/players', to: 'games#get_room_players'
   post 'room/:room_id/response', to: 'games#respond_invitation'
 
+  post 'room/:room_id/game/turn', to: 'games#post_new_turn'
+
 end
