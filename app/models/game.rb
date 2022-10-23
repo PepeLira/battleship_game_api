@@ -2,8 +2,9 @@ class Game < ApplicationRecord
     belongs_to :room, dependent: :destroy
     has_many :turns, dependent: :destroy
     has_one :board, dependent: :destroy
-    has_one :player_room, dependent: :destroy, :as => :current_player
-
+    has_one :player_room, dependent: :destroy
+    #alias_attribute :current_player, :player_room
+    
     after_create :create_board
     after_create :set_first_player
 

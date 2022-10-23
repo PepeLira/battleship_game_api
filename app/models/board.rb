@@ -19,14 +19,13 @@ class Board < ApplicationRecord
         
 
         players.each do |player|
-            boat_2 = Boat.new(state: "alive", n_of_cells: 2, player_room_id: player.id, board_id: id)
+            boat_2 = Boat.new(state: "alive", n_of_cells: 2, player_room: player, board_id: id)
             boat_2.save
             boat_2.set_coordinates(get_rand_boat("boat_2"))
-            binding.pry
-            boat_3 = Boat.new(state: "alive", n_of_cells: 3, player_room_id: player.id, board_id: id)
+            boat_3 = Boat.new(state: "alive", n_of_cells: 3, player_room: player, board_id: id)
             boat_3.save
             boat_3.set_coordinates(get_rand_boat("boat_3"))
-            boat_5 = Boat.new(state: "alive", n_of_cells: 5, player_room_id: player.id, board_id: id)
+            boat_5 = Boat.new(state: "alive", n_of_cells: 5, player_room: player, board_id: id)
             boat_5.save
             boat_5.set_coordinates(get_rand_boat("boat_5"))
         end

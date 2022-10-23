@@ -12,14 +12,20 @@ class GamesController < ApplicationController
       room = Room.find_by(id: params[:room_id])
 
       count = 1
+      first_player = nil
       # Asignación de los players 
-      PlayerRoom.find_by(room_id: params[:room_id]) do |pr|
+      PlayerRoom.where(room_id: params[:room_id]).each do |pr|
+        if count == 1
+          first_player = pr
+        end
         pr.update(player_number: count)
         count += 1
       end
+
       
-      # Instancia del nuevo juego
-      new_game = Game.new(room: room, winner: nil)
+      
+      # Instancia del nuevo juego (player_room es current_player)
+      new_game = Game.new(room: room, winner: nil, player_room_id: first_player.id)
       room.state = "in game"
 
       new_game.save!
