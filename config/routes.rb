@@ -20,5 +20,5 @@ Rails.application.routes.draw do
 
   post "new_game", to: 'games#new_game'
   post 'room/:room_id/game/turn', to: 'games#post_new_turn'
-
+  post 'get_board_state', to: 'games#get_board_state'
 end
