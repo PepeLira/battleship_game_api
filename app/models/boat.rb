@@ -13,11 +13,10 @@ class Boat < ApplicationRecord
     def check_impact(x_cord, y_cord)
     
         boat_coords = Coordinate.where(boat_id: id)
-        
-        # binding.pry
+
         impact = false
         boat_coords.each do |coord|
-            if coord.x == x_cord && coord.y == y_cord
+            if coord.x == x_cord.to_i && coord.y == y_cord.to_i
                 impact = true
                 break
             end

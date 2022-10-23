@@ -52,10 +52,10 @@ class GamesController < ApplicationController
       game = Game.find_by(room_id: params[:room_id])
       board = Board.find_by(game: game)
       if game.player_turn?(player_room.player_number)
-        if player_room.suicide?( params[:x_cord], params[:y_cord] )
+        if player_room.suicide?( params[:x_cord].to_i, params[:y_cord].to_i )
           response = {message: "No te dispares a ti mismo :("}
         else
-          impact_coords = board.fire_result( params[:x_cord], params[:y_cord] )
+          impact_coords = board.fire_result( params[:x_cord].to_i, params[:y_cord].to_i )
           if impact_coords
             result = "impacto"
             impact_coords.update(state: "dead")
@@ -63,13 +63,13 @@ class GamesController < ApplicationController
             if bonification
               player_room.update(bonification: bonification)
             end
-            response = {message: "Impacto [#{params[:x_cord].to_s},#{params[:y_cord].to_s}], vuelves a jugar"}
+            response = {message: "Impacto [#{params[:x_cord]},#{params[:y_cord]}], vuelves a jugar"}
           else
             result = "agua"
             next_player = game.next_player_turn
-            response = {message: "Al agua, le toca a #{next_player}"}
+            response = {message: "Al agua, le toca al jugador #{next_player.player_number} (#{next_player.name})"}
           end
-          Turn.create(x_cord: params[:x_cord], y_cord: params[:y_cord], result: result, game: game, player: player_room.player)
+          Turn.create(x_cord: params[:x_cord].to_i, y_cord: params[:y_cord].to_i, result: result, game: game, player: player_room.player)
         end
       else
         response = {message: "Actualmente no es tu turno :("}

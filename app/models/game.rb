@@ -8,26 +8,26 @@ class Game < ApplicationRecord
     before_create :set_first_player
 
     def create_board
-        Board.create(game_id: id)
+        Board.create(game_id: self.id)
     end
 
     def set_first_player
-        current_player_number = 1
+        Game.find(self.id).update(current_player_number: 1)
     end
 
     def next_player_turn
         current_player = PlayerRoom.find_by(player_number: self.current_player_number + 1)
+        Game.find(self.id).update(current_player_number: self.current_player_number + 1)
         if !current_player
-            self.current_player_number = 1
+            Game.find(self.id).update(current_player_number: 1)
             current_player = PlayerRoom.find_by(player_number: 1)
         end
-        self.current_player_number += 1 
-        current_player.player.name
+        current_player.player
     end
 
     
     def player_turn?(turn_player_number)
-        if current_player_number == turn_player_number
+        if self.current_player_number == turn_player_number
             true
         else
             false
