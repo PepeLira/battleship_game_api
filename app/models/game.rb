@@ -25,7 +25,7 @@ class Game < ApplicationRecord
 
     
     def player_turn?(turn_player)
-        if game_player == turn_player
+        if player_room == turn_player
             true
         else
             false

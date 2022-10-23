@@ -3,10 +3,10 @@ class PlayerRoom < ApplicationRecord
   belongs_to :room, dependent: :destroy
   has_many :boats, dependent: :destroy
 
-  belongs_to :game, dependent: :destroy
+  #belongs_to :game, dependent: :destroy
 
   def suicide?(x_cord, y_cord)
-    boats = Boat.where(game_player_id: id)
+    boats = Boat.where(player_room_id: id)
     suicide = false
     boats.each do |boat|
       if boat.check_impact(x_cord, y_cord)
