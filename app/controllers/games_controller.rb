@@ -52,11 +52,9 @@ class GamesController < ApplicationController
         count += 1
       end
 
-      
-      
       # Instancia del nuevo juego (player_room es current_player)
       new_game = Game.new(room: room, winner: nil, current_player_number: first_player.player_number)
-      room.state = "in game"
+      room.update(state: "in game")
 
       new_game.save!
 

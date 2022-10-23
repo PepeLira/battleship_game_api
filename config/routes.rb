@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   get 'players', to: "players#index"
-  get 'rooms', to: "games#get_all_rooms"
+  get 'rooms', to: "games#get_all_roomsget_all_rooms"
 
 
   get 'player/:id', to: "players#show"

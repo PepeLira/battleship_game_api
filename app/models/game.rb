@@ -3,9 +3,8 @@ class Game < ApplicationRecord
     has_many :turns, dependent: :destroy
     has_one :board, dependent: :destroy
     #alias_attribute :current_player, :player_room
-    
+        
     after_create :create_board
-    before_create :set_first_player
 
     def create_board
         Board.create(game_id: self.id)
