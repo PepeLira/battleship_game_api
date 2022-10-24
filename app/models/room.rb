@@ -29,11 +29,12 @@ class Room < ApplicationRecord
 
   def update_player_stats
     player_rooms = PlayerRoom.where(room_id: id)
-    player_rooms.each do |pr|
-      pr.player.update_n_played_games
-      pr.player.update_n_effectiveness
-      pr.player.update_turns_mean_of_games
-      pr.player.update_mean_of_misses_by_game
+    player_rooms.each do |player_room|
+      player = Player.find(player_room.player_id)
+      player.update_n_played_games
+      player.update_n_effectiveness(player_room)
+      player.update_turns_mean_of_games(player_room)
+      player.update_mean_of_misses_by_game(player_room)
     end
   end
 end

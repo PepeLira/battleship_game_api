@@ -47,12 +47,12 @@ class Player < ApplicationRecord
     Player.find(id).update(n_bonifications: n_bonifications+1)
   end
 
-  def update_n_effectiveness
+  def update_n_effectiveness(pr)
     turns = Turn.where(player_id: id, game_id: pr.room.game.id, result: "impacto")
     Player.find(id).update(n_effectiveness: turns.length())
   end
 
-  def update_turns_mean_of_games
+  def update_turns_mean_of_games(pr)
     player_rooms = PlayerRoom.where(player_id: id)
     turns = Turn.where(player_id: id, game_id: pr.room.game.id )
     mean = 0
@@ -62,7 +62,7 @@ class Player < ApplicationRecord
     Player.find(id).update(turns_mean_of_games: mean)
   end
 
-  def update_mean_of_misses_by_game
+  def update_mean_of_misses_by_game(pr)
     player_rooms = PlayerRoom.where(player_id: id)
     turns = Turn.where(player_id: id, game_id: pr.room.game.id, result: "agua" )
     mean = 0
