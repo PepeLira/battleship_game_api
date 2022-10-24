@@ -54,11 +54,15 @@ class GamesController < ApplicationController
         for coord in boat.coordinates
           if coord.state == "alive"
             data[:alive] << coord
-          else
-            data[:dead] << coord
           end
         end
       end
+
+      dead_boats = Room.find(params[:room_id]).game.board.coordinates.where(state: "dead")
+      dead_boats.each do |coord|
+        data[:dead] << coord
+      end
+      
       render json: data
     end
   end
