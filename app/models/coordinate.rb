@@ -7,7 +7,7 @@ class Coordinate < ApplicationRecord
 
     def update_boat_state
         coords = boat.coordinates.where(state: "alive")
-        if coord.length() == 0
+        if coords.length() == 0
             boat.update(state: "dead")
         end
     end
