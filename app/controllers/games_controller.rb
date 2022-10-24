@@ -92,7 +92,8 @@ class GamesController < ApplicationController
   def get_current_player_turn
     if params[:room_id].present?
       game = Game.find_by(room_id: params[:room_id])
-      response = { player: "Player_#{game.current_player_number.to_s}" }
+      player = PlayerRoom.find_by(player_number: game.current_player_number).player
+      response = { player: "#{player.name}" }
       render json: response
     end
   end
@@ -132,7 +133,7 @@ class GamesController < ApplicationController
           else
             result = "agua"
             next_player = game.next_player_turn
-            response = {message: "Al agua, le toca al jugador #{next_player.player_number.to_s} (#{next_player.name.to_s})"}
+            response = {message: "Al agua, le toca al jugador #{next_player.name.to_s}"}
           end
           Turn.create(x_cord: params[:x_cord].to_i, y_cord: params[:y_cord].to_i, result: result, game: game, player: player_room.player)
         end
