@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_23_195720) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_24_012557) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,10 +66,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_23_195720) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "room_id", null: false
-    t.bigint "winner"
     t.integer "current_player_number"
+    t.integer "winner"
     t.index ["room_id"], name: "index_games_on_room_id"
-    t.index ["winner"], name: "index_games_on_winner"
   end
 
   create_table "player_rooms", force: :cascade do |t|
@@ -127,7 +126,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_23_195720) do
   add_foreign_key "friend_requests", "friends"
   add_foreign_key "friend_requests", "players"
   add_foreign_key "friends", "players"
-  add_foreign_key "games", "players", column: "winner"
   add_foreign_key "games", "rooms"
   add_foreign_key "player_rooms", "players"
   add_foreign_key "player_rooms", "rooms"
