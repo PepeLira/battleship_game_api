@@ -96,7 +96,7 @@ class GamesController < ApplicationController
   def get_current_player_turn
     if params[:room_id].present?
       game = Game.find_by(room_id: params[:room_id])
-      player = PlayerRoom.find_by(player_number: game.current_player_number).player
+      player = PlayerRoom.find_by(player_number: game.current_player_number, room_id: params[:room_id]).player
       response = { player: "#{player.name}" }
       render json: response
     end
