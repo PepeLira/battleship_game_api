@@ -20,10 +20,11 @@ class GamesController < ApplicationController
         room.update(state: "closed")
         room.update_player_stats
         game.update(winner: room.get_winner)
-        render json: "finished"
+        response ={ state: "finished" }
       else
-        render json: "game_in_progress"
+        response ={ state: "game_in_progress" }
       end
+      render json: response
     end
   end
 
