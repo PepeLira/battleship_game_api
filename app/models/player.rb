@@ -35,6 +35,10 @@ class Player < ApplicationRecord
     Player.find(id).update(n_win_games: n_win_games+1)
   end
 
+  def remove_n_win_games
+    Player.find(id).update(n_win_games: n_win_games-1)
+  end
+
   def update_n_lose_games
     Player.find(id).update(n_lose_games: n_lose_games+1)
   end

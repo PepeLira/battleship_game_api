@@ -70,12 +70,16 @@ class GamesController < ApplicationController
   #POST NEW GAME
   def new_game
     if params[:room_id].present?
+      
+
       room = Room.find_by(id: params[:room_id])
 
       count = 1
       first_player = nil
       # Asignación de los players 
       PlayerRoom.where(room_id: params[:room_id]).each do |pr|
+        pr.player.update_n_played_games
+        pr.player.update_n_win_games
         if count == 1
           first_player = pr
         end

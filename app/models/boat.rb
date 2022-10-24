@@ -8,6 +8,8 @@ class Boat < ApplicationRecord
     def update_player_state
         boats = player_room.boats.where(state: "alive")
         if boats.length() == 0
+            player_room.player.update_n_lose_games
+            player_room.player.remove_n_win_games
             player_room.update(state: "dead")
         end
     end
