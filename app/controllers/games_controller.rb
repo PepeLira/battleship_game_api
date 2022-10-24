@@ -31,7 +31,7 @@ class GamesController < ApplicationController
     if params[:room_id] && params[:player_id]
       room = Room.find_by(id: params[:room_id])
 
-      player_room = room.player_rooms.where(player_id: params[:player_id]).first
+      player_room = PlayerRoom.where(player_id: params[:player_id], room: room).first
 
       data = {'alive': [], 'dead': []}
       
