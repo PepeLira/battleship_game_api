@@ -15,11 +15,11 @@ class Game < ApplicationRecord
     end
 
     def next_player_turn
-        current_player = PlayerRoom.find_by(player_number: self.current_player_number + 1)
+        current_player = PlayerRoom.find_by(player_number: self.current_player_number + 1, room_id: self.room_id)
         Game.find(self.id).update(current_player_number: self.current_player_number + 1)
         if !current_player
             Game.find(self.id).update(current_player_number: 1)
-            current_player = PlayerRoom.find_by(player_number: 1)
+            current_player = PlayerRoom.find_by(player_number: 1, room_id: self.room_id)
         end
         current_player.player
     end

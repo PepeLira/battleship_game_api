@@ -2,6 +2,7 @@ require 'securerandom'
 class Player < ApplicationRecord
   before_create :asign_auth_key
   after_create :create_friend_association
+  after_create :assign_stats
 
   has_many :turns, dependent: :destroy
   has_many :friend_requests, dependent: :destroy
@@ -12,6 +13,18 @@ class Player < ApplicationRecord
 
   def create_friend_association
     Friend.create(player_id: id)
+  end
+
+  def assign_stats
+    Player.find(id).update(
+      n_win_games: 0,
+      n_lose_games: 0,
+      n_played_games: 0,
+      n_bonifications: 0,
+      n_effectiveness: 0,
+      turns_mean_of_games: 0,
+      mean_of_misses_by_game: 0
+    )
   end
 
   def asign_auth_key
