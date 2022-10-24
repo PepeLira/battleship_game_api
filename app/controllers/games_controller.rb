@@ -14,9 +14,9 @@ class GamesController < ApplicationController
     if params[:room_id].present?
       room = Room.find(params[:room_id])
       game = Game.find_by(room_id: params[:room_id])
-      alive_coordinates = Coordinate.where(board_id: Board.find_by(game: game).id, state: "alive")
+      dead_players = room.player_rooms.where(player_number: 0)
 
-      if alive_coordinates.length() == 0
+      if room.player_rooms.length() - dead_players.length() == 1
         room.update(state: "closed")
         room.update_player_stats
         game.update(winner: room.get_winner)
