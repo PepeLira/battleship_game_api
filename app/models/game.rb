@@ -14,16 +14,6 @@ class Game < ApplicationRecord
         Game.find(self.id).update(current_player_number: 1)
     end
 
-    def next_player_turn
-        current_player = PlayerRoom.find_by(player_number: self.current_player_number + 1, room_id: self.room_id)
-        Game.find(self.id).update(current_player_number: self.current_player_number + 1)
-        if !current_player
-            Game.find(self.id).update(current_player_number: 1)
-            current_player = PlayerRoom.find_by(player_number: 1, room_id: self.room_id)
-        end
-        current_player.player
-    end
-
     
     def player_turn?(turn_player_number)
         if self.current_player_number == turn_player_number

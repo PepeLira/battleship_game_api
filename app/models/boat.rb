@@ -3,12 +3,12 @@ class Boat < ApplicationRecord
     belongs_to :board, dependent: :destroy
     has_many :coordinates, dependent: :destroy
 
-    before_update :update_player_state
+    after_update :update_player_state
 
     def update_player_state
         boats = player_room.boats.where(state: "alive")
         if boats.length() == 0
-            player_room.update(player_number: 0)
+            player_room.update(state: "dead")
         end
     end
 

@@ -136,7 +136,7 @@ class GamesController < ApplicationController
             response = {message: "Impacto [#{params[:x_cord]},#{params[:y_cord]}], vuelves a jugar"}
           else
             result = "agua"
-            next_player = game.next_player_turn
+            next_player = game.board.next_player_turn
             response = {message: "Al agua, le toca al jugador #{next_player.name.to_s}"}
           end
           Turn.create(x_cord: params[:x_cord].to_i, y_cord: params[:y_cord].to_i, result: result, game: game, player: player_room.player)

@@ -14,6 +14,19 @@ class Board < ApplicationRecord
         }
     end
 
+    def next_player_turn
+        while true
+            current_player = PlayerRoom.find_by(player_number: game.current_player_number + 1, room_id: game.room_id, state: nil)
+            game.update(current_player_number: game.current_player_number + 1)
+            if current_player
+                break
+            elsif game.current_player_number >= 5
+                game.update(current_player_number: 0)
+            end
+        end
+        current_player.player
+    end
+
     def create_boats
         players = PlayerRoom.where(room_id: self.game.room_id)
         
