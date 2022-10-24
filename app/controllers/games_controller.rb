@@ -18,6 +18,7 @@ class GamesController < ApplicationController
 
       if alive_coordinates.length() == 0
         room.update(state: "closed")
+        room.update_player_stats
         game.update(winner: room.get_winner)
         render json: "finished"
       else
@@ -103,6 +104,7 @@ class GamesController < ApplicationController
             bonification = impact_coords.check_bonification
             if bonification
               player_room.update(bonification: bonification)
+              player_room.player.update_n_bonifications
             end
             response = {message: "Impacto [#{params[:x_cord]},#{params[:y_cord]}], vuelves a jugar"}
           else
