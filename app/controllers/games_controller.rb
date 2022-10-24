@@ -11,7 +11,7 @@ class GamesController < ApplicationController
   end
 
   def get_game_state
-    if params[:room_id]
+    if params[:room_id].present?
       room = Room.find(params[:room_id])
       game = Game.find_by(room_id: params[:room_id])
       alive_coordinates = Coordinate.where(board_id: Board.find_by(game: game).id, state: "alive")
@@ -24,6 +24,20 @@ class GamesController < ApplicationController
       else
         response ={ state: "game_in_progress" }
       end
+      render json: response
+    end
+  end
+
+  def get_player_points
+    if params[:room_id].present?
+      players_room = PlayerRoom.where(room_id: params[:room_id])
+
+      response = []
+
+      players_room.each do |pr|
+        response << {player_n: pr.player_number, points: pr.player_point, bonification: pr.bonification}
+      end
+
       render json: response
     end
   end
