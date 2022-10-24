@@ -78,8 +78,6 @@ class GamesController < ApplicationController
       first_player = nil
       # Asignación de los players 
       PlayerRoom.where(room_id: params[:room_id]).each do |pr|
-        pr.player.update_n_played_games
-        pr.player.update_n_win_games
         if count == 1
           first_player = pr
         end
@@ -89,6 +87,8 @@ class GamesController < ApplicationController
 
       # Instancia del nuevo juego (player_room es current_player)
       if !Game.find_by(room: room)
+        pr.player.update_n_played_games
+        pr.player.update_n_win_games
         new_game = Game.new(room: room, winner: nil, current_player_number: first_player.player_number)
         room.update(state: "in game")
 
