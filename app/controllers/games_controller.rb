@@ -14,10 +14,10 @@ class GamesController < ApplicationController
     if params[:room_id]
       room = Room.find(params[:room_id])
       game = Game.find_by(room_id: params[:room_id])
-      alive_coordinates = []
+      alive_coordinates = Coordinate.where(board_id: Board.find_by(game: game).id, state: "alive")
 
       if alive_coordinates.length() == 0
-        room.update(state: "in game")
+        room.update(state: "closed")
         game.update(winner: room.get_winner)
         render json: "finished"
       else
