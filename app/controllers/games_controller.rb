@@ -29,9 +29,8 @@ class GamesController < ApplicationController
 
   def get_board_state
     if params[:room_id] && params[:player_id]
-      room = Room.find_by(id: params[:room_id])
 
-      player_room = PlayerRoom.where(player_id: params[:player_id], room: room).first
+      player_room = PlayerRoom.where(player_id: params[:player_id], room_id: params[:room_id]).first
 
       data = {'alive': [], 'dead': []}
       
@@ -72,6 +71,13 @@ class GamesController < ApplicationController
 
         new_game.save!
       end
+    end
+  end
+
+  def get_current_player_turn
+    if params[:room_id].present?
+      Game = Game.find_by(params[:room_id])
+      render json: "Player #{game.current_player_number.to_s}"
     end
   end
 

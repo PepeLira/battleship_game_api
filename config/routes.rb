@@ -26,4 +26,5 @@ Rails.application.routes.draw do
   post 'get_board_state', to: 'games#get_board_state'
 
   get "room/:room_id/game_state", to: 'games#get_game_state'
+  get "room/:room_id/game_state", to: 'games#get_current_player_turn'
 end
