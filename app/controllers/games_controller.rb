@@ -10,6 +10,18 @@ class GamesController < ApplicationController
     render json: Room.all
   end
 
+  def get_game_state
+    if params[:room_id]
+      game = Game.find_by(room_id: params[:room_id])
+
+      if game.winner
+        render json: "finished"
+      else
+        render json: "game_in_progress"
+      end
+    end
+  end
+
   def get_board_state
     if params[:room_id] && params[:player_id]
       room = Room.find_by(id: params[:room_id])
@@ -59,7 +71,7 @@ class GamesController < ApplicationController
   end
 
   # Para crear una nueva sala
-  def create_new_game
+  def create_new_room
     if params[:player_id].present?
       room = Room.new(state: "open")
       room.save!

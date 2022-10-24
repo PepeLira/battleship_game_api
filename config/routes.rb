@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
 
   post 'player/:player_id/rooms', to: 'games#get_rooms'
-  post 'player/new_game', to: 'games#create_new_game'
+  post 'player/new_room', to: 'games#create_new_room'
   post 'room/new_player', to: 'games#add_new_player'
   get 'room/:room_id/players', to: 'games#get_room_players'
   post 'room/:room_id/response', to: 'games#respond_invitation'
@@ -24,4 +24,6 @@ Rails.application.routes.draw do
   post "new_game", to: 'games#new_game'
   post 'room/:room_id/game/turn', to: 'games#post_new_turn'
   post 'get_board_state', to: 'games#get_board_state'
+
+  get "room/:room_id/game_state", to: 'games#get_game_state'
 end
